@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pandev.bot.exchanger.app.constant.Command;
 import pandev.bot.exchanger.app.constant.MessageView;
-import pandev.bot.exchanger.app.service.UserService;
 import pandev.bot.exchanger.app.service.ExchangeService;
 import pandev.bot.exchanger.app.service.ExchangerBotService;
+import pandev.bot.exchanger.app.service.UserService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,16 +35,16 @@ public class ExchangerBotServiceImpl implements ExchangerBotService {
 
     @Override
     public void processUpdate(Update update) {
-        if(update == null || update.message() == null){
+        if (update == null || update.message() == null) {
             return;
         }
         Long chatId = update.message().chat().id();
         if (Boolean.FALSE.equals(userService.checkUser(chatId))) {
             userService.registerUser(update.message());
-        } else{
+        } else {
             userService.updateUser(update.message());
         }
-        if(update.message().text() == null){
+        if (update.message().text() == null) {
             return;
         }
         String message = update.message().text();
@@ -121,6 +121,7 @@ public class ExchangerBotServiceImpl implements ExchangerBotService {
         }
         sendMessage(new SendMessage(chatId, formattedText));
     }
+
     public void kztCommand(Long chatId) {
         String formattedText;
         try {

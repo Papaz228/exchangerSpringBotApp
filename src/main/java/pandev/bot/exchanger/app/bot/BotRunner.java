@@ -10,12 +10,14 @@ import org.springframework.stereotype.Component;
 import pandev.bot.exchanger.app.service.impl.ExchangerBotServiceImpl;
 
 import java.util.concurrent.CompletableFuture;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class BotRunner {
     private final TelegramBot bot;
     private final ExchangerBotServiceImpl exchangerBotServiceImpl;
+
     @PostConstruct
     public void init() {
         CompletableFuture.runAsync(this::startListeningForUpdates);
